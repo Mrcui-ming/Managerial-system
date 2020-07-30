@@ -1,0 +1,17 @@
+{
+  "name": "backstage",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "lodash": "^4.17.19",
+    "morgan": "~1.9.1",
+    "validator": "^13.1.1"
+  }
+}
