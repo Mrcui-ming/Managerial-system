@@ -4,7 +4,6 @@ import Login from 'pages/login/Login.jsx';
 import Admin from 'pages/admin/Admin.jsx';
 
 function App() {
-  console.log(Admin);
   return (
     <div className="App">
       <Switch>

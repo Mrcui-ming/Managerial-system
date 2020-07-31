@@ -303,7 +303,9 @@ module.exports = function(webpackEnv) {
         'common': '@/common',
         'components': '@/components',
         'network': '@/network',
-        'pages': '@/pages'
+        'pages': '@/pages',
+        'store': '@/store',
+        'config': '@/config'
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

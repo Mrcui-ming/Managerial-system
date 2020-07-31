@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import style from 'assets/css/login/login.module.css';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as loginAction from 'store/action/loginAction.js';
 
-export default class Login extends Component {
+class Login extends Component {
 
   render() {
     const layout = {
@@ -21,12 +24,19 @@ export default class Login extends Component {
     };
 
     const onFinish = values => {
-      console.log('Success:', values);
+      delete values.remember;
+      this.props.Acitons.login(values);
     };
 
     const onFinishFailed = errorInfo => {
       console.log('Failed:', errorInfo);
     };
+    
+    let loginState = this.props.loginState;
+    if(loginState._id){
+      this.props.history.replace("/");
+    }
+
     return (
       <div id={style.login}>
         <div className={style.from}>
@@ -85,3 +95,16 @@ export default class Login extends Component {
     )
   }
 }
+const mapStateToProps = ({stateOne}) => {
+  return {
+    loginState: stateOne
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    Acitons: bindActionCreators(loginAction,dispatch)
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
