@@ -108,9 +108,6 @@ router.get('/user', (req, res) => {
   // 从请求的cookie得到userid
   const userid = req.cookies.userid
   // 如果不存在, 直接返回一个提示信息
-/*   console.log(userid); */
-  console.log(111);
-  
   if (!userid) {
     return res.send({status: 1, msg: '请先登陆'})
   }
@@ -118,8 +115,6 @@ router.get('/user', (req, res) => {
   UserModel.findOne({_id: userid}, filter)
     .then(user => {
       if (user) {
-        console.log(userid);
-        
         res.send({status: 0, data: user})
       } else {
         // 通知浏览器删除userid cookie
@@ -135,6 +130,7 @@ router.get('/user', (req, res) => {
 
 // 获取所有用户列表
 router.get('/manage/user/list', (req, res) => {
+  //获取username不包含admin的所有用户 admin是root用户
   UserModel.find({username: {'$ne': 'admin'}})
     .then(users => {
       RoleModel.find().then(roles => {
@@ -236,6 +232,8 @@ router.get('/manage/product/search', (req, res) => {
   } else if (productDesc) {
     contition = {desc: new RegExp(`^.*${productDesc}.*$`)}
   }
+  //{desc: /^.*属于.*$/}这种数据格式的话 mongoDB会进行一个正则匹配的查找
+  //就是mongoDB支持传递正则表达式类型的数据 他内部会做正则校验。
   ProductModel.find(contition)
     .then(products => {
       res.send({status: 0, data: pageFilter(products, pageNum, pageSize)})
@@ -300,11 +298,11 @@ router.get('/manage/role/list', (req, res) => {
 
 // 更新角色(设置权限)
 router.post('/manage/role/update', (req, res) => {
-  const role = req.body
+  let role = req.body.role;
   role.auth_time = Date.now()
   RoleModel.findOneAndUpdate({_id: role._id}, role)
     .then(oldRole => {
-      // console.log('---', oldRole._doc)
+      // console.log('---', oldRole._doc)   
       res.send({status: 0, data: {...oldRole._doc, ...role}})
     })
     .catch(error => {

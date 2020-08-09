@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Checkbox, message } from 'antd';
+import { Form, Input, Button, Checkbox } from 'antd';
 import style from 'assets/css/login/login.module.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginAction from 'store/action/loginAction.js';
 
 class Login extends Component {
+
+  onFinish = values => {
+    delete values.remember;
+    this.props.Acitons.login(values);
+  };
+
+  onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo);
+  };
 
   render() {
     const layout = {
@@ -23,15 +32,6 @@ class Login extends Component {
       },
     };
 
-    const onFinish = values => {
-      delete values.remember;
-      this.props.Acitons.login(values);
-    };
-
-    const onFinishFailed = errorInfo => {
-      console.log('Failed:', errorInfo);
-    };
-    
     let loginState = this.props.loginState;
     if(loginState._id){
       this.props.history.replace("/");
@@ -40,15 +40,15 @@ class Login extends Component {
     return (
       <div id={style.login}>
         <div className={style.from}>
-          <p className={style.title}>管理平台</p>
+          <p className={style.title}>宁雀茶管理平台</p>
           <Form
             {...layout}
             name="basic"
             initialValues={{
               remember: true,
             }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+            onFinish={this.onFinish}
+            onFinishFailed={this.onFinishFailed}
             className={style.from_from}
           >
             <Form.Item
@@ -61,7 +61,7 @@ class Login extends Component {
                 },
               ]}
             >
-              <Input />
+              <Input style={{padding: "2px 10px"}}/>
             </Form.Item>
 
             <Form.Item
@@ -74,7 +74,7 @@ class Login extends Component {
                 },
               ]}
             >
-              <Input.Password />
+              <Input.Password style={{padding: "2px 10px"}}/>
             </Form.Item>
 
             <Form.Item {...tailLayout} name="remember" valuePropName="checked">

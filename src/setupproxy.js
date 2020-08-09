@@ -11,4 +11,14 @@ module.exports = function(app) {
       }
     })
   )
+  app.use(
+    '/api1',
+    createProxyMiddleware({
+      target: 'http://i.baidu.com',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api1' : ''
+      }
+    })
+  )
 };

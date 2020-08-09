@@ -2,7 +2,8 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: url("../../img/bg.png") no-repeat top left;
+  background: url("../../img/bg.jpg") no-repeat;
+  background-size: 100% 100%;
 }
 .from {
   position: absolute;
@@ -11,7 +12,9 @@
   width: 500px;
   height: 315px;
   padding: 30px;
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  color: #000;
   transform: translate(-50%, -80%);
   overflow: hidden;
 }
@@ -34,7 +37,7 @@
   left: 0;
   right: 0;
   color: #fff;
-  font-size: 14px;
+  font-size: 13px;
   text-align: center;
 }
 .footer span {

@@ -5,9 +5,7 @@ import { message } from 'antd';
 const login = (params) => {
   return async dispatch => {
     const response = await Login(params);
-    console.log(response);
     if(response.status === 0){
-      console.log("成功");
       message.success('登陆成功');
       dispatch({
         type: LOGINSUC,

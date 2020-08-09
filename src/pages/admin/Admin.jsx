@@ -39,11 +39,11 @@ class Admin extends Component {
     return (
       <div id={style.admin}>
         {loginState._id ? 
-        <Layout style={{height: "100%"}}>
+        <Layout style={{minHeight: "100%"}}>
           <Sider><LeftNav /></Sider>
           <Layout>
             <Header></Header>
-            <Content style={{margin: 20,backgroundColor: "#fff"}}>
+            <Content style={{margin: 20,marginBottom: 0,backgroundColor: "#fff"}}>
               <Switch>
                 <Route path="/home" component={Home}></Route>
                 <Route path="/product/category" component={Category}></Route>
