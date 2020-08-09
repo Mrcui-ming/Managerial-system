@@ -17,7 +17,8 @@ export default class User extends Component {
       users: [],
       roles: [],
       visible: false
-    }
+    };
+    this.formRef = React.createRef();
   }
 
   componentWillMount() {
@@ -49,6 +50,13 @@ export default class User extends Component {
       pre[role._id] = role.name;
       return pre
     },{})
+  }
+
+  //修改用户
+  showUpdateBox = user => {
+    this.user = user;
+    //通过user判断当前处于修改还是添加的界面
+    this.setState({visible: true});
   }
 
   //初始化tableColumns
@@ -87,7 +95,7 @@ export default class User extends Component {
         title: "操作",
         render: (user) => (
           <>
-            <LinkButton>修改</LinkButton>&nbsp;
+            <LinkButton onClick={() => {this.showUpdateBox(user)}}>修改</LinkButton>&nbsp;
             {/* 是modal的另一种用法 通过点机执行函数 在函数内配置modal */}
             <LinkButton onClick={(() => {this.showConfirm(user)})}>删除</LinkButton>
           </>
@@ -117,14 +125,22 @@ export default class User extends Component {
     });
   }
 
+  //创建用户
+  createUser = () => {
+    this.user = null;
+    this.setState({visible: true})
+  }
+
   //隐藏创建用户框
   hideAddRoleBox = () => {
+    this.formRef.current.formRef.current.resetFields();
     this.setState({visible: false});
   }
 
   render() {
     const {users,visible,roles} = this.state;
-    const title = <Button type="primary" onClick={() => this.setState({visible: true})}>创建用户</Button>
+    const user = this.user || {};
+    const title = <Button type="primary" onClick={this.createUser}>创建用户</Button>
     return (
       <Card title={title}>
         <Table
@@ -138,7 +154,8 @@ export default class User extends Component {
         >   
         </Table>
           <Modal
-            title="创建用户"
+            destroyOnClose
+            title={user._id ? "修改用户" : "创建用户"}
             okText="确认"
             cancelText="取消"
             visible={visible}
@@ -146,9 +163,11 @@ export default class User extends Component {
             footer={false}
           >
             <UserForm 
+            ref={this.formRef}
             getUser={this.getUser} 
-            hideAddRoleBox={this.hideAddRoleBox} 
-            roles={roles}/>
+            hideAddRoleBox={this.hideAddRoleBox}
+            roles={roles}
+            user={user}/>
           </Modal>
       </Card>
     )
