@@ -115,7 +115,18 @@ router.get('/user', (req, res) => {
   UserModel.findOne({_id: userid}, filter)
     .then(user => {
       if (user) {
-        res.send({status: 0, data: user})
+        if (user.role_id) {
+          RoleModel.findOne({_id: user.role_id})
+            .then(role => {
+              user._doc.role = role
+              console.log('role user', user)
+              res.send({status: 0, data: user})
+            })
+        } else {
+          user._doc.role = {menus: []}
+          // 返回登陆成功信息(包含user)
+          res.send({status: 0, data: user})
+        }
       } else {
         // 通知浏览器删除userid cookie
         res.clearCookie('userid')

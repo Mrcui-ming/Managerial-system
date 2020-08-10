@@ -17,7 +17,8 @@ const menuConfig = [
   {
     key: "/home",
     icon: <HomeOutlined />,
-    title: '首页'
+    title: '首页',
+    isPublic: true //公开的路由权限
   },
   {
     key: "/product",

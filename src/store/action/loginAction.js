@@ -39,7 +39,6 @@ const voluntarilyLogin = () => {
 }
 
 const exitLogin = () => {
-  message.success('退出成功');
   return {
     type: EXITLOGIN
   }

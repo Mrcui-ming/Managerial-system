@@ -158,7 +158,10 @@ export default class Home extends Component {
       <Card title={title} extra={extra}>
         <Table 
           rowKey="_id"
+          //table栏底部分页器的配置
           pagination = {{
+            //指定当前是第几页 点击搜索永远时第一页 点击分页器的时候是根据分页器来指定第几页
+            current: this.pageNum,
             defaultPageSize: PAGE_ISZE,
             showQuickJumper: true,
             total: total,

@@ -4,7 +4,7 @@ import * as LoginAction from 'store/action/loginAction.js';
 import Cookie from 'js-cookie';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Modal, Spin, Space } from 'antd';
+import { Modal, Spin, Space,message } from 'antd';
 import { QuestionCircleTwoTone } from '@ant-design/icons';
 import getWeather from 'network/weather.js';
 import { formatDate, getTime } from 'common/until.js';
@@ -32,7 +32,7 @@ class Header extends Component {
 
   componentWillUnmount() {
     //清除定时器
-    clearInterval(this.timer && this.timer);
+    clearInterval(this.timer);
   }
 
   //获取天气
@@ -89,6 +89,7 @@ class Header extends Component {
   exitLogin = () => {
     Cookie.remove("userid");
     this.props.Actions.exitLogin();
+    message.success("退出成功");
   }
 
   confirm = () => {

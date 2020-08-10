@@ -5,6 +5,10 @@ import config1 from 'config/menuconfig1.js';
 import RoleTree from './childComp/RoleTree';
 import { connect } from 'react-redux';
 import { formatDate } from 'common/until.js';
+import { bindActionCreators } from 'redux';
+import * as LoginAction from 'store/action/loginAction.js';
+import Cookie from 'js-cookie';
+
 const Item = Form.Item;
 
 //角色路由
@@ -103,6 +107,7 @@ class Role extends Component {
   //设置用户权限
   editRoleAuth = async() => {
     let {role} = this.state;
+    let roleId = this.props.loginState.role_id;
     let menus = this.treeRef.current.getMenus();
     role.menus = menus;
     role.auth_name = this.props.loginState.username;
@@ -110,16 +115,20 @@ class Role extends Component {
     const res = await reqUpdateRole({
       role: role
     })
-    
     if(res.status === 0){
       //俩种方式都可以 
       /* 1.重新获取角色列表进行展示
       this.getRoleList();
       2.因为改变了role.menus 而role是来源于每一行Row 最终指向的数组roles 所以改变role的属性 roles自然发生了改变 */
-      this.setState({
-        roles: [...this.state.roles]
-      })
-      message.success("设置角色权限成功");
+      if(roleId === role._id){
+        this.props.history.replace("/login");
+        this.setState({
+          roles: [...this.state.roles]
+        })
+        Cookie.remove("userid");
+        this.props.Actions.exitLogin();
+      } 
+      message.success(roleId === role._id ? "当前用户的权限更新了,请重新登录" : "设置角色权限成功");
     }else{
       message.error(res.msg);
     }
@@ -182,7 +191,14 @@ class Role extends Component {
         <Table
          bordered
          //设置左侧显示radio单选钮 selectedRowKeys: [role._id]可以点击行选中单选钮(key与key对应)，但有小bug
-         rowSelection={{type: "radio",selectedRowKeys: [role._id]}}
+         rowSelection={{
+          type: "radio",
+          selectedRowKeys: [role._id],
+          //复选框点击事件
+          onSelect: (role) => {
+            this.setState({role:role})
+          }
+        }}
          //table行 发生改变
          onRow={this.onRow}
          dataSource={roles}
@@ -246,4 +262,10 @@ const mapStateToProps = ({ stateOne }) => {
   }
 }
 
-export default connect(mapStateToProps,null)(Role);
+const mapDistpatchToProps = (dispatch) => {
+  return {
+    Actions: bindActionCreators(LoginAction, dispatch)
+  }
+}
+
+export default connect(mapStateToProps,mapDistpatchToProps)(Role);
