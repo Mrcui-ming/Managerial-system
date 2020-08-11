@@ -35,7 +35,7 @@ class LeftNav extends Component {
     const { key, isPublic } = item;
     const userMenus = this.props.loginState.role.menus;
     const userName = this.props.loginState.username;
-    if (userName === "admin" || isPublic || userMenus.indexOf(key) !== -1) {
+    if (userName === "cuiming" || isPublic || userMenus.indexOf(key) !== -1) {
       return true;
     }
     //如果当前用户有此item.child的权限(如果最外层key不匹配 那么里面的key也不会去查找了。所以这么做)，那么也应该有权限去显示

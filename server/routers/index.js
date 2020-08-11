@@ -20,9 +20,13 @@ const filter = {password: 0, __v: 0}
 // 登陆
 router.post('/login', (req, res) => {
   const {username, password} = req.body; 
+  console.log(username,password);
+  
   // 根据username和password查询数据库users, 如果没有, 返回提示错误的信息, 如果有, 返回登陆成功信息(包含user)
   UserModel.findOne({username, password: md5(password)})
     .then(user => {
+      console.log(user);
+      
       if (user) { // 登陆成功
         // 生成一个cookie(userid: user._id), 并交给浏览器保存
         res.cookie('userid', user._id, {maxAge: 1000 * 60 * 60 * 24})
@@ -142,7 +146,7 @@ router.get('/user', (req, res) => {
 // 获取所有用户列表
 router.get('/manage/user/list', (req, res) => {
   //获取username不包含admin的所有用户 admin是root用户
-  UserModel.find({username: {'$ne': 'admin'}})
+  UserModel.find({username: {'$ne': 'cuiming'}})
     .then(users => {
       RoleModel.find().then(roles => {
         res.send({status: 0, data: {users, roles}})

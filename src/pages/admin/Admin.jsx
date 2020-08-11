@@ -16,6 +16,7 @@ import User from 'pages/user/User';
 import Bar from 'pages/charts/Bar';
 import Line from 'pages/charts/Line';
 import Pie from 'pages/charts/Pie';
+import NotFound from 'pages/404/NotFound';
 
 const { Footer, Sider, Content } = Layout;
 
@@ -45,6 +46,7 @@ class Admin extends Component {
             <Header></Header>
             <Content style={{margin: 20,marginBottom: 0,backgroundColor: "#fff"}}>
               <Switch>
+                <Redirect exact from="/" to="/home"/>
                 <Route path="/home" component={Home}></Route>
                 <Route path="/product/category" component={Category}></Route>
                 <Route path="/product/goods" component={Goods}></Route>
@@ -53,7 +55,7 @@ class Admin extends Component {
                 <Route path="/charts/bar" component={Bar}></Route>
                 <Route path="/charts/line" component={Line}></Route>
                 <Route path="/charts/pie" component={Pie}></Route>
-                <Redirect to="/home"/>
+                <Route component={NotFound}></Route>
               </Switch>
             </Content>
             <Footer style={{textAlign: 'center',color: "#aaa"}}>推荐只用谷歌浏览器，可以获得更佳页面操作体验 ©</Footer>

@@ -19,11 +19,11 @@ const userSchema = new mongoose.Schema({
 const UserModel = mongoose.model('myselfs', userSchema)
 
 // 初始化默认超级管理员用户: admin/admin
-UserModel.findOne({username: 'admin'}).then(user => {
+UserModel.findOne({username: 'cuiming'}).then(user => {
   if(!user) {
-    UserModel.create({username: 'admin', password: md5('admin')})
+    UserModel.create({username: 'cuiming', password: md5('cuiming')})
             .then(user => {
-              console.log('初始化用户: 用户名: admin 密码为: admin')
+              console.log('初始化用户: 用户名: cuiming 密码为: cuiming')
             })
   }
 })

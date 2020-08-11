@@ -76,12 +76,10 @@ export default class AddUpdate extends Component {
     if(res.status === 0){
       message.success(_id ? "修改成功" : "添加成功");
       this.props.history.goBack();
+      this.getCascaderDate("0");
     }else{
       message.error(_id ? "修改失败" : "添加失败");
-    }
-        
-    
-    
+    } 
   }
 
   //获取联动菜单的子菜单数据 (如果是修改页面：自动获取二级联动菜单数据)
