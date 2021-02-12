@@ -73,6 +73,7 @@ export default class ProductImg extends Component {
         const result = response.data;
         //设置数组中当前这个图片的 名称/路径 原本是组件自动生成的. 应该改为后端返回的正确数据.
         //这不能直接改这个file 应该改那个所有已上传数组集合中的最后一条数据刚好就是上传的图片.
+        //再照这个file之前 fileList里面已经存在这个file了 但是它的属性不正确.
         file = fileList[fileList.length - 1];
         file.name = result.name;
         file.url = result.url;
@@ -81,7 +82,7 @@ export default class ProductImg extends Component {
        }
     }
     //删除图片成功后回调
-      else if(file.status === 'removed'){
+    else if(file.status === 'removed'){
       const res = await reqDeleteImg({name: file.name});
       if(res.status === 0){
         message.success("删除图片成功");

@@ -119,7 +119,7 @@ export default class User extends Component {
           //更新用户列表
           this.getUser();
         }else{
-          message.success("删除用户失败");
+          message.error("删除用户失败");
         }
       }
     });
@@ -154,6 +154,7 @@ export default class User extends Component {
         >   
         </Table>
           <Modal
+            //销毁后/隐藏后 把内容清除
             destroyOnClose
             title={user._id ? "修改用户" : "创建用户"}
             okText="确认"

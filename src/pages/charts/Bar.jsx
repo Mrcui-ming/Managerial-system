@@ -27,7 +27,7 @@ export default class Bar extends Component {
 
   getOption = (source) => {
     return {
-      
+      //鼠标移入的效果展示
       tooltip: {
         //触发方式 各种形状的这个值不同
           trigger: 'axis',
@@ -35,11 +35,13 @@ export default class Bar extends Component {
               type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
           }
       },
+      //title部分
       legend: {
         textStyle: {
           fontSize: 14 
         }
       },
+      //网格大小
       grid: {
         left: "4%",
         top: "40px",
@@ -47,10 +49,12 @@ export default class Bar extends Component {
         bottom: "4%",
         containLabel: true 
       },
+      //数据
       dataset: {
           dimensions: ['product', '销量', '库存'],
           source: source
       },
+      //x轴相关设置
       xAxis: {
         type: 'category',
         axisLabel: {
@@ -58,15 +62,14 @@ export default class Bar extends Component {
           fontSize: "14"
           } 
       },
-      
+      //y轴相关设置
       yAxis: {
         axisLabel: {
         color: "#000",
         fontSize: "12"
         } 
       },
-      // Declare several bar series, each will be mapped
-      // to a column of dataset.source by default.
+      //网格内 的内容显示的设置
       series: [
           {type: 'bar',barWidth: '15%',
           itemStyle: {

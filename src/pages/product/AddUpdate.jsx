@@ -86,14 +86,15 @@ export default class AddUpdate extends Component {
   getCascaderDate = async(parentId) => {
     const res = await reqCategorys({parentId: parentId});
     const { pCategoryId } = this.goodsListItem;
-    let data = res.data.map(value => {
-      return {
-        value: value._id,
-        label: value.name,
-        isLeaf: false
-      }
-    })
+    
     if(res.status === 0){
+      let data = res.data.map(value => {
+        return {
+          value: value._id,
+          label: value.name,
+          isLeaf: false
+        }
+      })
       //不论获取/不获取二级联动菜单数据 都需要在一级联动菜单数据加载完毕再做。
       //设置一级联动菜单数据
       if(parentId === "0"){
@@ -133,7 +134,9 @@ export default class AddUpdate extends Component {
 
   //自定义校验规则
   validatorPrice = (role,value) => {
+    //要求返回一个promise
     return new Promise((resolve,reject) => {
+      //然后的话就判断成功或失败就行了
       if(value*1 <= 0){
         reject();
       }else{

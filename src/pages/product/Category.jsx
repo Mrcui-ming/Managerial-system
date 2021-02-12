@@ -72,6 +72,7 @@ export default class Category extends Component {
     this.setState({
       parentId: "0",
       subDataSource: [],
+      toCategoryId: "0",
       parentName: '一级分类列表'
     })
   }
@@ -99,7 +100,9 @@ export default class Category extends Component {
 
   //隐藏弹出框
   handleCancel = () => {
-    this.FormRef.current.formRef.current.resetFields();
+    if(this.state.visible === 1){
+      this.FormRef.current.formRef.current.resetFields();
+    }
     this.setState({
       visible: 0,
       showWait: false,
@@ -110,6 +113,7 @@ export default class Category extends Component {
   //添加分类
   addCategory = async() => {
     const {newCategoryName,toCategoryId,parentId} = this.state;
+    
     if(newCategoryName.length <= 0){
       return;
     }
@@ -178,7 +182,7 @@ export default class Category extends Component {
   }
 
   render() {
-    const { dataSource,isLoading,parentId,parentName,subDataSource,visible,categoryName,showWait,newCategoryName } = this.state; 
+    const { dataSource,isLoading,parentId,parentName,subDataSource,visible,categoryName,showWait,newCategoryName,toCategoryId } = this.state; 
     const columns = [
       //dataIndex 意思是 这一列根据dataSource中的name属性数量来生成对应的行。
       {
@@ -237,7 +241,7 @@ export default class Category extends Component {
           >
             <CategoryAdd 
             dataSource={dataSource} 
-            parentId={parentId} 
+            parentId={toCategoryId} 
             addInputChange={this.addInputChange} 
             getCategoryName={this.getCategoryName}
             newCategoryName={newCategoryName}

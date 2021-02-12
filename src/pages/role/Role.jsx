@@ -121,13 +121,13 @@ class Role extends Component {
       this.getRoleList();
       2.因为改变了role.menus 而role是来源于每一行Row 最终指向的数组roles 所以改变role的属性 roles自然发生了改变 */
       if(roleId === role._id){
-        this.props.history.replace("/login");
-        this.setState({
-          roles: [...this.state.roles]
-        })
+        this.props.history.replace("/login"); 
         Cookie.remove("userid");
         this.props.Actions.exitLogin();
       } 
+      this.setState({
+        roles: [...this.state.roles]
+      })
       message.success(roleId === role._id ? "当前用户的权限更新了,请重新登录" : "设置角色权限成功");
     }else{
       message.error(res.msg);

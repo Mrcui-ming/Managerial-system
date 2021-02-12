@@ -13,7 +13,7 @@ export default class RichTextEidor extends Component {
     const detail = this.props.detail;
     const html = detail;
     if(html && html.length > 0){
-      //默认显示的时候要把HTML格式转为文本格式
+      //默认显示的时候要把HTML格式转 为文本格式
       //判断转化成功就显示 如果转化失败(转化成功/失败 根据detail数据的正确与否)就创建一个空本文显示。
       const contentBlock = htmlToDraft(html);
       const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);

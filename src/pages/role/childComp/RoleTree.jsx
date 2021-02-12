@@ -39,11 +39,14 @@ export default class RoleTree extends Component {
       <Tree
         //节点前添加复选框
         key="key"
+        //有复选框
         checkable
         treeData={config1}
+        //默认展开全部
         defaultExpandAll={true}
+        //复选框发生改变触发
         onCheck={this.onCheck}
-        //复选框需那种的节点有哪些
+        //复选框需要选中的节点有哪些
         checkedKeys={menus}
       />
     )
