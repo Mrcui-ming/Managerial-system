@@ -41,7 +41,7 @@
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "^1.6.1",
     "events": "^3.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "fastclick": "^1.0.6",
     "file-loader": "4.3.0",
     "fs-extra": "^8.1.0",
